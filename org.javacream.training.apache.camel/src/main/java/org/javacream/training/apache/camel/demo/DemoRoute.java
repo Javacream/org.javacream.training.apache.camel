@@ -6,7 +6,7 @@ public class DemoRoute extends RouteBuilder {
 
 	@Override
 	public void configure() throws Exception {
-		from("file://data/indir?noop=true").to("stream:out");
+		from("file://data/indir?noop=true").process(new DemoProcessor()).to("stream:out");
 	}
 
 	

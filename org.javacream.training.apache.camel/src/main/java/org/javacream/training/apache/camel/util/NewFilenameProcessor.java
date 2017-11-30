@@ -8,9 +8,9 @@ public class NewFilenameProcessor implements Processor {
 
 	@Override
 	public void process(Exchange exchange) throws Exception {
-		final String FILENAME_HEADER = "CamelFileName";
-		//TODO: Change filename...
-		Message message =  exchange.getIn();
+		final String FILENAME_HEADER = Exchange.FILE_NAME;
+		// TODO: Change filename...
+		Message message = exchange.getIn();
 		String filename = (String) message.getHeader(FILENAME_HEADER);
 		message.setHeader(FILENAME_HEADER, filename.toUpperCase());
 	}
