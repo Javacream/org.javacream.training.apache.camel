@@ -8,7 +8,7 @@ public class OutdirToOutstreamRoute extends RouteBuilder {
 
 	@Override
 	public void configure() throws Exception {
-		from("file://data/outdir?delete=true").process(new DebugProcessor()).process(new NewBodyProcessor()).to("stream:out");
+		from("file://data/outdir?noop=true").process(new DebugProcessor()).process(new NewBodyProcessor()).to("stream:out");
 	}
 
 }
