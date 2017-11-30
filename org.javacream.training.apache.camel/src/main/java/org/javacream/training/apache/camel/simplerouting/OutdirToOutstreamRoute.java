@@ -6,7 +6,7 @@ public class OutdirToOutstreamRoute extends RouteBuilder {
 
 	@Override
 	public void configure() throws Exception {
-		from("file://data/outdir?noop=true&delete=true").to("stream:out");
+		from("file://data/outdir?delete=true").to("stream:out");
 	}
 
 }
