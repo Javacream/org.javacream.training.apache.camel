@@ -12,6 +12,6 @@ public class DemoBusiness {
 	
 	public void doSomething() {
 		//...
-		System.out.println(echoBusiness.echo("Hello", true));
+		System.out.println(echoBusiness.echo2("Hello"));
 	}
 }

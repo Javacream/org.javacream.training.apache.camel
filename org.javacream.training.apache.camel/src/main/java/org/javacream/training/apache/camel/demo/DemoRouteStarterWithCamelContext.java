@@ -2,13 +2,17 @@ package org.javacream.training.apache.camel.demo;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.impl.SimpleRegistry;
 import org.apache.camel.main.Main;
+import org.javacream.training.echo.EchoBusiness;
 
 
-public class DemoRouteStarterWithContext {
+public class DemoRouteStarterWithCamelContext {
 
 	public static void main(String[] args) throws Exception {
-		CamelContext camelContext = new DefaultCamelContext();
+		SimpleRegistry registry = new SimpleRegistry();
+		buildContext(registry);
+		CamelContext camelContext = new DefaultCamelContext(registry);
 		camelContext.addRoutes(new DemoRoute());
 		camelContext.start();
 		
@@ -22,6 +26,10 @@ public class DemoRouteStarterWithContext {
 		}
 
 		
+	}
+	
+	private static void buildContext(SimpleRegistry registry) {
+		registry.put("echoBean", new EchoBusiness());
 	}
 
 }

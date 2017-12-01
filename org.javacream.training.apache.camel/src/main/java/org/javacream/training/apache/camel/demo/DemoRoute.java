@@ -7,10 +7,9 @@ public class DemoRoute extends RouteBuilder {
 
 	@Override
 	public void configure() throws Exception {
-		EchoBusiness echoBusiness = new EchoBusiness();
-
+		
 		from("file://data/indir?noop=true").setHeader("ReverseMode", constant(true)).process(new DemoProcessor())
-				.bean(echoBusiness).to("stream:out");
+				.bean("echoBean").to("stream:out");
 	}
 
 }
