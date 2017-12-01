@@ -3,9 +3,7 @@ package org.javacream.training.apache.camel.demo;
 import org.apache.camel.CamelContext;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.impl.SimpleRegistry;
-import org.apache.camel.main.Main;
 import org.javacream.training.echo.EchoBusiness;
-
 
 public class DemoRouteStarterWithCamelContext {
 
