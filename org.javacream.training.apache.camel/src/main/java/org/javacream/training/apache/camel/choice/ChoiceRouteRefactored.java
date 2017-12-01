@@ -15,16 +15,24 @@ public class ChoiceRouteRefactored {
 	private static final String OUTDIR_TXT_DOES_NOT_CONTAIN_HELLO = OUTDIR_TXT + "/does_not_contain_hello";
 	private static final String OUTDIR_OTHER = OUTDIR + "/other";
 
-	private static class EntryRoute extends RouteBuilder {
+	public static class EntryRoute extends RouteBuilder {
 		@Override
 		public void configure() throws Exception {
-			from("file://" + INDIR + "?move=backup").choice()
+			from("file://" + INDIR + "?move=backup").to("direct://dispatch");
+		}
+	}
+	
+	public static class DispatcherRoute extends RouteBuilder{
+		@Override
+		public void configure() throws Exception {
+			from("direct://dispatch").choice()
 					.when(header(Exchange.FILE_NAME).endsWith(".xml")).to("file://" + OUTDIR_XML).endChoice()
 					.otherwise().to("direct://no_xml").endChoice().end();
 		}
+		
 	}
 
-	private static class NoXmlRoute extends RouteBuilder {
+	public static class NoXmlRoute extends RouteBuilder {
 		@Override
 		public void configure() throws Exception {
 			from("direct://no_xml").choice().when(header(Exchange.FILE_NAME).endsWith(".txt")).to("direct://txt")
@@ -33,7 +41,7 @@ public class ChoiceRouteRefactored {
 		}
 	}
 
-	private static class TxtRoute extends RouteBuilder {
+	public static class TxtRoute extends RouteBuilder {
 		@Override
 		public void configure() throws Exception {
 			from("direct://txt")

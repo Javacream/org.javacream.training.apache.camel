@@ -27,14 +27,14 @@ public class TemplateAndProxy
 	private void withProducer() throws Exception
 	{
 		ProducerTemplate producerTemplate = context.createProducerTemplate();
-		producerTemplate.sendBodyAndHeader("file://outdir", "Hello from ProducerTemplate", "CamelFileName", "ProducerTemplate.dat");
+		producerTemplate.sendBodyAndHeader("file://outdir", "Hello from ProducerTemplate", "CamelFileName", "ProducerTemplate.txt");
 	}
 	
 	
 	private void withProxy() throws Exception
 	{
 		DemoWriter writer = new ProxyBuilder(context).endpoint("file://outdir").build(DemoWriter.class);
-		writer.write("Proxy.dat", "Hello from Proxy");
+		writer.write("Proxy.txt", "Hello from Proxy");
 	}
 	
 	 interface DemoWriter
