@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:camel="http://camel.apache.org/schema/spring"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd   http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring-2.0-M1.xsd">
-	<bean id="demoProcessor"
-		class="org.javacream.training.apache.camel.demo.DemoProcessor"></bean>
-	<camel:camelContext
-		id="camelContext-6f305423-6d25-47d4-a1ed-76c50a7b63b0">
-		<camel:route id="_route1">
-			<camel:from id="_from1" uri="file:data/indir?noop=true" />
-			<camel:process ref="demoProcessor"></camel:process>
-			<camel:to id="_to1" uri="file:data/outdir" />
-		</camel:route>
-	</camel:camelContext>
+    xmlns:camel="http://camel.apache.org/schema/spring"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd   http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring-2.0-M1.xsd">
+    <bean class="org.javacream.training.apache.camel.demo.DemoProcessor" id="demoProcessor"/>
+    <camel:camelContext id="camelContext-6f305423-6d25-47d4-a1ed-76c50a7b63b0">
+        <camel:route id="_route1">
+            <camel:from id="_from1" uri="file:data/indir?noop=true"/>
+            <camel:process id="_process1" ref="demoProcessor"/>
+            <camel:to id="_to1" uri="file:data/outdir"/>
+        </camel:route>
+    </camel:camelContext>
 </beans>
