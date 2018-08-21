@@ -4,7 +4,9 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd   http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring-2.0-M1.xsd">
     <import resource="business.xml"/>
     <bean
-        class="org.javacream.training.apache.camel.complexfile.ContentProcessor" id="contentProcessor"/>
+        class="org.javacream.training.apache.camel.complexfile.ContentProcessor" id="contentProcessor">
+        <property name="transformer" ref="textTransformer"></property>
+        </bean>
     <camel:camelContext id="camelContext-6f305423-6d25-47d4-a1ed-76c50a7b63b0">
         <camel:route id="input_to_immediate">
             <camel:from id="fromInput" uri="file://data/indir?recursive=true"/>
@@ -20,7 +22,8 @@
         </camel:route>
         <camel:route id="textProcessing">
             <camel:from id="_from1" uri="direct:textProcessing"/>
-            <camel:process id="_convertBody" ref="contentProcessor"/>
+            <!-- <camel:bean id="_convertBody" ref="contentProcessor"/>  -->
+            <camel:bean id="_convertBody" ref="textTransformer" method="transform(${body})"/>
             <camel:to id="toTextProcessed" uri="direct:textProcessed"/>
         </camel:route>
         <camel:route id="intermediate_to_binary">

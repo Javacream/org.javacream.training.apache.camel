@@ -1,24 +1,20 @@
 package org.javacream.training.apache.camel.complexfile;
 
-import org.apache.camel.Exchange;
-import org.apache.camel.Message;
-import org.apache.camel.Processor;
+import org.apache.camel.Body;
+import org.apache.camel.Handler;
 import org.javacream.training.util.TextTransformer;
-import org.springframework.beans.factory.annotation.Autowired;
 
-public class ContentProcessor implements Processor {
+public class ContentProcessor{
 
-	@Autowired private TextTransformer transformer;
+	private TextTransformer transformer;
 
 	public void setTransformer(TextTransformer transformer) {
 		this.transformer = transformer;
 	}
 
-	@Override
-	public void process(Exchange exchange) throws Exception {
-		Message in = exchange.getIn();
-		String input = in.getBody(String.class);
-		in.setBody(transformer.transform(input));
+	@Handler
+	public String processTransform(@Body String input) throws Exception {
+		return transformer.transform(input);
 
 	}
 
