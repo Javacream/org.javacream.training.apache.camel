@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd   http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring-2.0-M1.xsd">
+	<import resource="business.xml" />
+	<camel:camelContext
+		id="camelContext-6f305423-6d25-47d4-a1ed-76c50a7b63b0">
+		<camel:route>
+			<camel:from uri="file://data/indir"></camel:from>
+			<camel:choice>
+				<camel:when>
+					<camel:simple>header.CamelFileName.endsWith('.txt')</camel:simple>
+					<camel:to uri="direct:textProcessing" />
+				</camel:when>
+				<camel:when>
+					<camel:simple>header.CamelFileName.endsWith('.xml')</camel:simple>
+					<camel:to uri="direct:xmlProcessing" />
+				</camel:when>
+				<camel:otherwise>
+					<camel:to uri="direct:binary" />
+				</camel:otherwise>
+			</camel:choice>
+		</camel:route>
+
+		<camel:route id="textProcessed_to_result">
+			<camel:from id="txtFromProcessor"
+				uri="direct:textProcessed" />
+			<camel:to id="toTxt" uri="file:data/txt" />
+		</camel:route>
+		<camel:route id="xmlProcessed_to_result">
+			<camel:from id="xmlFromTransfomer"
+				uri="direct:xmlProcessed" />
+			<camel:to id="toXml" uri="file:data/xml?fileName=${file:name.noext}.html" />
+		</camel:route>
+
+
+		<camel:route id="textProcessing">
+			<camel:from id="_from1" uri="direct:textProcessing" />
+			<camel:bean id="_convertBody" ref="textTransformer"
+				method="transform(${body})" />
+			<camel:to id="toTextProcessed" uri="direct:textProcessed" />
+		</camel:route>
+		<camel:route id="xmlProcessing">
+			<camel:from id="_from1" uri="direct:xmlProcessing" />
+			<camel:to uri="xslt://file:data/xml/schema/person.xsl"></camel:to>
+			<camel:to id="toXmlProcessed" uri="direct:xmlProcessed" />
+		</camel:route>
+
+		<camel:route id="intermediate_to_binary">
+			<camel:from id="binaryFromIntermediate"
+				uri="direct:binary" />
+			<camel:to id="toBinary" uri="file:data/binary" />
+		</camel:route>
+
+	</camel:camelContext>
+	<bean
+		class="org.javacream.training.apache.camel.complexfile.ContentProcessor"
+		id="contentProcessor">
+		<property name="transformer" ref="textTransformer"></property>
+	</bean>
+
+</beans>
