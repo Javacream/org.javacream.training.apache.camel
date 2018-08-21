@@ -1,20 +1,19 @@
 package org.javacream.training.util;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
+
 public class TextTransformer {
-	private String algorithm;
+	private Map<String, Function<String, String>>algorithms;
 
-	public void setAlgorithm(String algorithm) {
-		this.algorithm = algorithm;
+	{
+		algorithms = new HashMap<>();
+		algorithms.put("upper", (String s) -> {return s.toUpperCase();});
+		algorithms.put("lower", (String s) -> {return s.toLowerCase();});
 	}
-
-	public String transform(String input) {
-		String result = input;
-		if ("upper".equals(algorithm)) {
-			result = input.toUpperCase();
-		} else if ("lower".equals(algorithm)) {
-			result = input.toLowerCase();
-		}
-		return result;
+	public String transform(String algorithmName, String input) {
+		return algorithms.get(algorithmName).apply(input);
 	}
 
 }

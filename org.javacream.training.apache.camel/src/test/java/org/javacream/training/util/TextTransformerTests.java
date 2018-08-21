@@ -15,25 +15,17 @@ public class TextTransformerTests {
 	private TextTransformer transformer;
 	
 	@Test public void testUpperTransform() {
-		transformer.setAlgorithm("upper");
 		final String IN = "Hugo";
 		final String EXPECTED = "HUGO";
-		String result = transformer.transform(IN);
+		String result = transformer.transform("upper", IN);
 		Assert.assertEquals(EXPECTED, result);
 	}
 	@Test public void testLowerTransform() {
-		transformer.setAlgorithm("lower");
 		final String IN = "Hugo";
 		final String EXPECTED = "hugo";
-		String result = transformer.transform(IN);
+		String result = transformer.transform("lower", IN);
 		Assert.assertEquals(EXPECTED, result);
 	}
 	
-	@Test public void testSpringConfiguration() {
-		final String IN = "Hugo";
-		final String EXPECTED = "HUGO";
-		String result = transformer.transform(IN);
-		Assert.assertEquals(EXPECTED, result);
-	}
 
 }

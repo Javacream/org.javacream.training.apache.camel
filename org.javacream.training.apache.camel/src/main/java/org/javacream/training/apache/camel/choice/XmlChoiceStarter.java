@@ -5,7 +5,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class XmlChoiceStarter {
 
 	public static void main(String[] args) {
-		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("choice-route.xml");
+		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("choice-exceptions-route.xml");
 		Object block = new Object();
 		synchronized (block) {
 			try {
