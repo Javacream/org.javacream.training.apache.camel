@@ -8,6 +8,7 @@
 	<enableImports><![CDATA[false]]></enableImports>
 	<configs>
 		<config>src/main/resources/simple-route.xml</config>
+		<config>src/main/resources/business.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>
