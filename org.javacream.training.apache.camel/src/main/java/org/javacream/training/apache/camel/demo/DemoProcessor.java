@@ -12,6 +12,7 @@ public class DemoProcessor implements Processor {
 //		inMessage.setHeader("CamelFileName", "HUGO.TXT");
 //		inMessage.setBody("HUGO");
 		System.out.println("INMESSAGE: " + inMessage);
+		System.out.println("*** Exchange: " + exchange);
 	}
 
 }
