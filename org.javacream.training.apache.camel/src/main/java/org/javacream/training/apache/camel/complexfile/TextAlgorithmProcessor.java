@@ -11,7 +11,6 @@ public class TextAlgorithmProcessor {
 		String algorithm = body.substring(0, firstLine);
 		Message message = exchange.getIn();
 		message.setHeader("TextConverterAlgorithm", algorithm);
-		message.setBody(body.substring(firstLine));
 		String newBody =  body.substring(firstLine + 2);
 		return newBody;
 	}

@@ -16,11 +16,17 @@ public class SimpleCamelUnitTest extends CamelTestSupport {
 	@Produce(uri = "direct:start")
 	protected ProducerTemplate template;
 
+	@Test public void templateTest() {
+		//1. Daten definieren
+		//2. Mock Endpoint expectations
+		//3. Senden der Message -> Route starten
+		//4. Assertions prüfen
+	}
 
 	@Test
 	public void testSendMatchingMessage() throws Exception {
 		String expectedBody = "<matched/>";
-
+		
 		resultEndpoint.expectedBodiesReceived(expectedBody);
 
 		template.sendBodyAndHeader(expectedBody, "foo", "bar");
