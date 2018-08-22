@@ -33,7 +33,7 @@
             <camel:to id="toXml" uri="file:data/xml?fileName=${file:name.noext}.html"/>
         </camel:route>
         <camel:route id="textProcessing">
-            <camel:from id="_from1" uri="direct:textProcessing"/>
+            <camel:from id="_from1Txt" uri="direct:textProcessing"/>
             <camel:doTry id="_doTry1">
                 <camel:bean id="_addHeader" ref="textAlgorithmProcessor"/>
                 <camel:bean id="_convertBody"

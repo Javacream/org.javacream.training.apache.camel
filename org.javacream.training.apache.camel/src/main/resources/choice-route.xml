@@ -29,7 +29,7 @@
             <camel:to id="toXml" uri="file:data/xml?fileName=${file:name.noext}.html"/>
         </camel:route>
         <camel:route id="textProcessing">
-            <camel:from id="_from1" uri="direct:textProcessing"/>
+            <camel:from id="_from1Txt" uri="direct:textProcessing"/>
             <camel:bean id="_convertBody" method="transform(${body})" ref="textTransformer"/>
             <camel:to id="toTextProcessed" uri="direct:textProcessed"/>
         </camel:route>

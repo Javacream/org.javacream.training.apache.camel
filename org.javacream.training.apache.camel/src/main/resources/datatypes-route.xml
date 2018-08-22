@@ -3,19 +3,37 @@
 	xmlns:camel="http://camel.apache.org/schema/spring"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd   http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring-2.0-M1.xsd">
-	<bean
-		class="org.javacream.training.apache.camel.datatypes.DataTypeConverter"></bean>
 	<camel:camelContext>
 		<camel:route>
 			<camel:from uri="file:data/csv/input"></camel:from>
 			<camel:unmarshal>
 				<camel:csv></camel:csv>
 			</camel:unmarshal>
-			<camel:bean beanType="org.javacream.training.apache.camel.datatypes.DataTypeProcessor"></camel:bean> 
+			<camel:bean
+				beanType="org.javacream.training.apache.camel.datatypes.DataTypeProcessor"></camel:bean>
 			<camel:marshal>
 				<camel:gzip />
 			</camel:marshal>
-			<camel:to uri="file:data/csv/output?fileName=${file:name.noext}.zip"></camel:to>
+			<camel:to
+				uri="file:data/csv/output?fileName=${file:name.noext}.zip"></camel:to>
 		</camel:route>
+
+
+		<camel:route>
+			<camel:from uri="file:data/json/input"></camel:from>
+			<camel:unmarshal>
+				<camel:json library="Jackson" useList="true" unmarshalTypeName="org.javacream.training.apache.camel.datatypes.Person"></camel:json>
+			</camel:unmarshal>
+			<camel:bean
+				beanType="org.javacream.training.apache.camel.datatypes.DataTypePeopleProcessor"></camel:bean>
+			<camel:marshal>
+				<camel:gzip />
+			</camel:marshal>
+			<camel:to
+				uri="file:data/json/output?fileName=${file:name.noext}.zip"></camel:to>
+		</camel:route>
+
+
+
 	</camel:camelContext>
 </beans>
