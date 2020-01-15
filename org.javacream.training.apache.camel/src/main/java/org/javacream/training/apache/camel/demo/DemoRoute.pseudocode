@@ -1,0 +1,8 @@
+from file://indir to file://outdir
+
+import org.apache.camel.RouteBuilder;
+public class DemoRoute extends RouteBuilder{
+public void configure(){
+from ("file://indir").to( "file://outdir");
+}
+}

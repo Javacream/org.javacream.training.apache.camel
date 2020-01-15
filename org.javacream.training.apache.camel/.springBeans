@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beansProjectDescription>
+	<version>1</version>
+<<<<<<< HEAD
+	<pluginVersion><![CDATA[3.9.5.201807030714-RELEASE]]></pluginVersion>
+=======
+	<pluginVersion><![CDATA[3.9.0.201707061730-RELEASE]]></pluginVersion>
+>>>>>>> training_30.11.2017
+	<configSuffixes>
+		<configSuffix><![CDATA[xml]]></configSuffix>
+	</configSuffixes>
+	<enableImports><![CDATA[false]]></enableImports>
+	<configs>
+<<<<<<< HEAD
+		<config>src/main/resources/simple-route.xml</config>
+		<config>src/main/resources/business.xml</config>
+=======
+		<config>src/main/resources/camel-context.xml</config>
+>>>>>>> training_30.11.2017
+	</configs>
+	<autoconfigs>
+	</autoconfigs>
+	<configSets>
+	</configSets>
+</beansProjectDescription>
