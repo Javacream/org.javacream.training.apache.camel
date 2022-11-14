@@ -18,6 +18,7 @@ public class FirstContact {
 			context.addRoutes(builder);
 			context.start();
 			Thread.sleep(5000);
+			context.shutdown();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
