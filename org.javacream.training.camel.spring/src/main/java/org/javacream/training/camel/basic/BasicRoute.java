@@ -6,12 +6,14 @@ import javax.annotation.PreDestroy;
 import org.apache.camel.builder.RouteBuilder;
 import org.javacream.training.camel.basic.util.SimpleChangingProcessor;
 import org.javacream.training.camel.basic.util.SimpleReadingProcessor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-//@Component
+@Component
 public class BasicRoute extends RouteBuilder{
 
+	
 	{
 		System.out.println("# constructor: " + this);
 	}
@@ -30,9 +32,16 @@ public class BasicRoute extends RouteBuilder{
 	private String from;
 	@Value("${route.to}")
 	private String to;
+	
+	@Autowired
+	private SimpleReadingProcessor simpleReadingProcessor;
+	
+	@Autowired
+	private SimpleChangingProcessor simpleChangingProcessor;
+	
 	@Override
 	public void configure() throws Exception {
-		from(from).process(new SimpleChangingProcessor()).process(new SimpleReadingProcessor()).to(to);
+		from(from).process(simpleChangingProcessor).process(simpleReadingProcessor).to(to);
 	}
 
 }
