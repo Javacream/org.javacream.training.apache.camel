@@ -10,23 +10,31 @@ import org.springframework.context.annotation.Configuration;
 public class RoutesConfiguration {
 
 	@Bean
-	public RouteBuilder route1(@Value("${route1.from}") String from, @Value("${route1.to}") String to,
-			StringConverterProcessor processor) {
+	public RouteBuilder route1(@Value("${route1.from}") String from
+			) {
 		return new RouteBuilder() {
 			@Override
 			public void configure() throws Exception {
-				from(from).process(processor).to(to);
+				from(from).to("direct:processing");
 			}
 		};
 	}
 
-	@Bean
-	public RouteBuilder route2(@Value("${route2.from}") String from, @Value("${route2.to}") String to,
-			StringConverterProcessor processor) {
+	@Bean public RouteBuilder direct(StringConverterProcessor processor, @Value("${route1.to}") String to) {
 		return new RouteBuilder() {
 			@Override
 			public void configure() throws Exception {
-				from(from).process(processor).to(to);
+				from("direct:processing").process(processor).to(to);
+			}
+		};
+		
+	}
+	@Bean
+	public RouteBuilder route2(@Value("${route2.from}") String from) {
+		return new RouteBuilder() {
+			@Override
+			public void configure() throws Exception {
+				from(from).to("direct:processing");
 			}
 		};
 	}
