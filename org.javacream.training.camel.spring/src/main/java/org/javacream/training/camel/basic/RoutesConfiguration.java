@@ -7,21 +7,15 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RoutesConfiguration {
-	@Value("${route1.from}")
-	private String from1;
-	@Value("${route1.to}")
-	private String to1;
-	
-	@Value("${route2.from}")
-	private String from2;
-	@Value("${route2.to}")
-	private String to2;
 
-	@Bean public RouteBuilder route1() {
-		return new BasicRoute(from1, to1);
+	@Bean
+	public RouteBuilder route1(@Value("${route1.from}") String from, @Value("${route1.to}") String to) {
+		return new BasicRoute(from, to);
 	}
-	@Bean public RouteBuilder route2() {
-		return new BasicRoute(from2, to2);
+
+	@Bean
+	public RouteBuilder route2(@Value("${route2.from}") String from, @Value("${route2.to}") String to) {
+		return new BasicRoute(from, to);
 	}
 
 }
