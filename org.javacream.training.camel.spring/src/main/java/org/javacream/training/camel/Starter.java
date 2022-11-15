@@ -9,7 +9,7 @@ public class Starter {
 	public static void main(String[] args) throws Exception{
 		System.out.println("Starting main...");
 		SpringApplication.run(Starter.class, args);
-		Thread.sleep(50000);
+		Thread.sleep(1000);
 		System.exit(0);
 	}
 }

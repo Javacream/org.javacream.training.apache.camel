@@ -9,8 +9,8 @@ import org.javacream.training.camel.basic.util.SimpleReadingProcessor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-//@Component
-public class BasicRoute extends RouteBuilder{
+@Component
+public class BasicRouteNoValue extends RouteBuilder{
 
 	{
 		System.out.println("# constructor: " + this);
@@ -18,21 +18,17 @@ public class BasicRoute extends RouteBuilder{
 	
 	@PostConstruct
 	public void initBasicRoute() {
-		System.out.println("# postconstruct: " + this +", " + this.from);
+		System.out.println("# postconstruct: " + this);
 	}
 
 	@PreDestroy
 	public void cleanup() {
-		System.out.println("# predestroy: " + this +", " + this.from);
+		System.out.println("# predestroy: " + this);
 	}
 
-	@Value("${route.from}")
-	private String from;
-	@Value("${route.to}")
-	private String to;
 	@Override
 	public void configure() throws Exception {
-		from(from).process(new SimpleChangingProcessor()).process(new SimpleReadingProcessor()).to(to);
+		from("{{route.from}}").process(new SimpleChangingProcessor()).process(new SimpleReadingProcessor()).to("{{route.to}}");
 	}
 
 }
