@@ -38,5 +38,14 @@ public class RoutesConfiguration {
 			}
 		};
 	}
+	@Bean
+	public RouteBuilder route3() {
+		return new RouteBuilder() {
+			@Override
+			public void configure() throws Exception {
+				from("file:data2/in?noop=true").to("file:data2/out?fileName=copy-of-${file:name}");
+			}
+		};
+	}
 
 }
