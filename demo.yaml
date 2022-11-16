@@ -1,0 +1,27 @@
+apiVersion: camel.apache.org/v1
+kind: Integration
+metadata:
+  name: demo
+spec:
+  flows:
+    - restConfiguration:
+        component: servlet
+        contextPath: camel
+        apiContextPath: camel-api
+        bindingMode: auto
+        enableCors: true
+    - route:
+        from:
+          uri: direct:demo
+          steps:
+            - to:
+                uri: stream:out
+          id: demo
+    - rest:
+        get:
+          - to: direct:demo
+            bindingMode: auto
+            path: /demo
+        consumes: application/json
+        produces: application/json
+        bindingMode: auto
