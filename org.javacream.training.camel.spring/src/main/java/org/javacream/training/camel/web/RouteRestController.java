@@ -13,8 +13,12 @@ public class RouteRestController {
 	@Autowired ProducerTemplate template;
 
 	@PostMapping(path = "/callDemoRoute")
-	public void toFile(@RequestBody String message, @RequestHeader("destination") String destination) {
+	public void demoRoute(@RequestBody String message, @RequestHeader("destination") String destination) {
 		template.sendBodyAndHeader("direct:demo", message, "to", destination);
+	}
+	@PostMapping(path = "/callComplexRoute")
+	public void complexRoutee(@RequestBody String message) {
+		template.sendBody("direct:in", message);
 	}
 
 }

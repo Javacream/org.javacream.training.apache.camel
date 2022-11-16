@@ -16,6 +16,7 @@ public class RoutesConfiguration {
 		return new RouteBuilder() {
 			@Override
 			public void configure() throws Exception {
+				
 				from("direct:demo").process(processor).toD("${header.to}");
 			}
 		};
@@ -23,6 +24,20 @@ public class RoutesConfiguration {
 	}
 
 	@Bean
+	public RouteBuilder complex() {
+		return new RouteBuilder() {
+			@Override
+			public void configure() throws Exception {
+				
+				from("direct:in").convertBodyTo(String.class).filter(simple("${body} contains 'Hello'")).bean("stringConverter", "transform(${body})").setBody(simple("${body.toLowerCase()}")).to("direct:out");
+				from("direct:out").to("file:result?fileName=result.txt");
+			}
+		};
+
+	}
+
+	
+	//@Bean
 	public RouteBuilder directRest(StringConverterProcessor processor) {
 		return new RouteBuilder() {
 			@Override
