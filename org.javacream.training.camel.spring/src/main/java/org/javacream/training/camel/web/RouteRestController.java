@@ -17,7 +17,7 @@ public class RouteRestController {
 		template.sendBodyAndHeader("direct:demo", message, "to", destination);
 	}
 	@PostMapping(path = "/callComplexRoute")
-	public void complexRoutee(@RequestBody String message) {
+	public void complexRoute(@RequestBody String message) {
 		template.sendBody("direct:in", message);
 	}
 

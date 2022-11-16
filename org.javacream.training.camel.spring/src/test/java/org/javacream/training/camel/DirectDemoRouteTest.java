@@ -11,16 +11,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @CamelSpringBootTest
 //@MockEndpoints("stream:out")
-@MockEndpointsAndSkip("stream:out")
+@MockEndpointsAndSkip("file:out")
 @SpringBootTest
 public class DirectDemoRouteTest {
 
 	@Autowired ProducerTemplate producerTemplate;
-	@EndpointInject("mock:stream:out") MockEndpoint mock;
+	@EndpointInject("mock:file:out") MockEndpoint mock;
 	@Test public void testSimple() throws Exception{
 		mock.expectedBodiesReceived("hello", "helloworld");
-		producerTemplate.sendBodyAndHeader("direct:demo", "Hello", "to", "stream:out");
-		producerTemplate.sendBodyAndHeader("direct:demo", "He Ll o    WOR ld", "to", "stream:out");
+		producerTemplate.sendBodyAndHeader("direct:demo", "Hello", "to", "file:out");
+		producerTemplate.sendBodyAndHeader("direct:demo", "He Ll o    WOR ld", "to", "file:out");
 		mock.assertIsSatisfied();
 	}
 	
