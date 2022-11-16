@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class SimpleRestController {
+public class RouteRestController {
 
 	@Autowired ProducerTemplate template;
 
-	@PostMapping(path = "/toFile")
+	@PostMapping(path = "/callDemoRoute")
 	public void toFile(@RequestBody String message, @RequestHeader("destination") String destination) {
 		template.sendBodyAndHeader("direct:demo", message, "to", destination);
 	}
